@@ -1,7 +1,8 @@
 import {Component, OnDestroy} from '@angular/core';
 import {AppService} from "./app.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Subject, takeUntil} from "rxjs/dist/types";
+import {takeUntil} from "rxjs/operators";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent implements OnDestroy {
     firstName: new FormControl('', Validators.nullValidator || Validators.required),
     lastName: new FormControl('', Validators.nullValidator || Validators.required),
     email: new FormControl('', Validators.nullValidator || Validators.required)
-  })
+  });
 
   users: any[] = [];
   userCount = 0;
@@ -32,13 +33,23 @@ export class AppComponent implements OnDestroy {
       this.userCount = this.userCount + 1;
       console.log(this.userCount);
       this.userForm.reset();
-    })
+    });
   }
 
   getAllUsers() {
-    this.appService.getUsers()
+    // @ts-ignore
+    this.appService.getUsers().pipe(takeUntil(this.destroy$)).subscribe((users: any[]) => {
+      this.userCount = users.length;
+      this.users = users;
+    });
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  ngOnInit() {
+    this.getAllUsers();
   }
 }
