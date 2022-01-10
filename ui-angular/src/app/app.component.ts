@@ -1,0 +1,44 @@
+import {Component, OnDestroy} from '@angular/core';
+import {AppService} from "./app.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Subject, takeUntil} from "rxjs/dist/types";
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnDestroy {
+
+  constructor(private appService: AppService) {
+  }
+
+  title = 'ui-angular';
+
+  userForm = new FormGroup({
+    firstName: new FormControl('', Validators.nullValidator || Validators.required),
+    lastName: new FormControl('', Validators.nullValidator || Validators.required),
+    email: new FormControl('', Validators.nullValidator || Validators.required)
+  })
+
+  users: any[] = [];
+  userCount = 0;
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
+  onSubmit() {
+    this.appService.addUser(this.userForm.value, this.userCount + 1).pipe(takeUntil(this.destroy$)).subscribe(data => {
+      console.log('message::::', data);
+      this.userCount = this.userCount + 1;
+      console.log(this.userCount);
+      this.userForm.reset();
+    })
+  }
+
+  getAllUsers() {
+    this.appService.getUsers()
+  }
+
+  ngOnDestroy(): void {
+  }
+}
