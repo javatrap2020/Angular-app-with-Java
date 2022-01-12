@@ -1,7 +1,11 @@
 .header {
   width: 100%;
-  padding: 2%;
+  padding: 1%;
   background-color: green;
   color: white;
   text-align: center;
+}
+.email {
+  color: white;
+  text-align: left;
 }
