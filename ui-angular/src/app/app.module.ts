@@ -7,11 +7,13 @@ import {HeaderComponent} from "./header/header.component";
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ReactiveFormsModule} from "@angular/forms";
+import {UsersComponent} from "./users.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
