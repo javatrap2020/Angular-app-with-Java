@@ -8,11 +8,13 @@ import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ReactiveFormsModule} from "@angular/forms";
 import {UsersComponent} from "./users.component";
+import {DisplayBoardComponent} from './display-board.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    DisplayBoardComponent,
     UsersComponent
   ],
   imports: [
