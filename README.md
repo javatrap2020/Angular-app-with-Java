@@ -8,6 +8,10 @@ http://localhost:8080/h2-console
 mvn spring-boot:run 
 mvn clean package spring-boot:repackage  //no build !!! fix soon...
 
+mvn clean install
+java -jar target/com.javatrap2020.angular_app_with_java-0.0.1-SNAPSHOT.jar
+
+
 !!!!! run  from intellij IDE AngularAppWithJavaApplication
 
 
